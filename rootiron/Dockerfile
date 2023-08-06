@@ -1,3 +1,3 @@
 FROM nginx
 
-RUN echo hi
+RUN echo hi2
