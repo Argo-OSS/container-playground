@@ -1,5 +1,7 @@
 FROM node:18 AS build
 
+RUN mkdir -p /app
+
 WORKDIR /app
 
 COPY . .
