@@ -1,12 +1,11 @@
 FROM node:18 AS build
 
-RUN mkdir -p /app
-
 WORKDIR /app
+
+RUN yarn install --production
 
 COPY . .
 
-RUN yarn install
 RUN yarn run build
 
 EXPOSE 8080
