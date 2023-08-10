@@ -2,9 +2,9 @@ FROM node:18 AS build
 
 WORKDIR /app
 
-RUN yarn install --production
-
 COPY . .
+
+RUN yarn install --production
 
 RUN yarn run build
 
