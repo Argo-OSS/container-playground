@@ -1,12 +1,10 @@
 FROM node:18 AS build
 
-RUN mkdir -p /app
-
 WORKDIR /app
 
 COPY . .
 
-RUN yarn install --production
+RUN yarn install
 
 RUN yarn run build
 
