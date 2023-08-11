@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-alpine:17-latest
+FROM azul/zulu-openjdk-alpine:17-latest AS build
 
 LABEL AUTHOR="qudtjs0753 <qudtjs3636@gmail.com>"
 
@@ -9,4 +9,10 @@ COPY ./docker_api_test .
 
 RUN ./gradlew build
 
-CMD ["java", "-jar", "/docker_api_test/build/libs/docker_api_test-0.0.1-SNAPSHOT.jar"]
+FROM azul/zulu-openjdk-alpine:17-jre-headless-latest as production
+
+WORKDIR /api
+
+COPY --from=build /docker_api_test/build/libs/docker_api_test-0.0.1-SNAPSHOT.jar /api
+
+CMD ["java", "-jar", "docker_api_test-0.0.1-SNAPSHOT.jar"]
