@@ -4,11 +4,11 @@ WORKDIR /app
 
 COPY package.json yarn.lock /app/
 
-RUN yarn install --production
+RUN yarn install
 
 COPY . /app
 
-RUN /bin/sh -c "yarn run build"
+RUN yarn run build
 
 EXPOSE 8080
 
