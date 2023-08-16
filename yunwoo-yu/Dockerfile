@@ -8,7 +8,7 @@ RUN yarn install --production
 
 COPY . /app
 
-RUN yarn run build
+RUN /bin/sh -c "yarn run build"
 
 EXPOSE 8080
 
