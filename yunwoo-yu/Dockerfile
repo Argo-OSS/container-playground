@@ -2,9 +2,11 @@ FROM node:18
 
 WORKDIR /app
 
-COPY . .
+COPY packge*.json /app
 
-RUN yarn install
+RUN yarn install --production
+
+COPY . /app
 
 RUN yarn run build
 
