@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY package.json yarn.lock tsconfig.json ./
 
-RUN yarn install --production
+RUN yarn install
 
-COPY node_modules /app/node_modules
+COPY . .
 
 RUN yarn run build
 
