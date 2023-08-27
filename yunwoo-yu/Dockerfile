@@ -6,7 +6,7 @@ COPY package.json yarn.lock tsconfig.json ./
 
 RUN yarn install --production
 
-COPY . .
+COPY node_modules ./
 
 RUN yarn run build
 
