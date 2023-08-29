@@ -1,13 +1,13 @@
 FROM node:16-alpine3.14
 
-WORKDIR /
+WORKDIR /container
 
-COPY ./container/package.json ./container/yarn.lock /container/
+COPY ./container/package.json ./container/yarn.lock /
 
-RUN cd /container && yarn install
+RUN yarn install
 
-COPY . .
+COPY ./container .
 
-RUN cd /container && yarn build
+RUN yarn build
 
 ENTRYPOINT ["node", "/container/dist/main.js"]
