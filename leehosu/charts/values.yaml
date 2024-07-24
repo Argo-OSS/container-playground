@@ -1,6 +1,6 @@
 image:
   repository: l2hosu/argocd-oss
-  tag: "0.1"
+  tag: "1.1"
 
 deployment:
   replicaCount: 1
@@ -26,4 +26,3 @@ ingress:
         pathType: Prefix
       - path: /healthcheck
         pathType: Prefix
-

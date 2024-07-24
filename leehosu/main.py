@@ -5,7 +5,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return RedirectResponse(url="/api/v1/leehosu")
+    return {"message": "root endpoint!"}
 
 @app.get("/api/v1/leehosu")
 def root():
