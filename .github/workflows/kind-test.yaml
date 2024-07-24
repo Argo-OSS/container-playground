@@ -30,10 +30,10 @@ jobs:
         run: |
           TMP_DIR=$(mktemp -d)
           # kubectl
-          curl -L https://dl.k8s.io/release/${{ vars.K8S_VERSION }}/bin/linux/amd64/kubectl -o ${TMP_DIR}/kubectl
+          curl -L https://dl.k8s.io/release/v1.30.2/bin/linux/amd64/kubectl -o ${TMP_DIR}/kubectl
           
           # kind
-          curl -Lo ${TMP_DIR}/kind https://kind.sigs.k8s.io/dl/${{ vars.KIND_VERSION }}/kind-linux-amd64
+          curl -Lo ${TMP_DIR}/kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64
           
           # Helm
           curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
