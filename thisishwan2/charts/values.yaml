@@ -1,0 +1,40 @@
+replicaCount: 1 # 배포할 복제본 수 설정
+
+image:
+#  repository: pilhwan/container-playground # 이미지 경로 설정
+  name: pilhwan/container-playground
+#  pullPolicy: IfNotPresent # 이미지를 가져오는 정책
+  tag: "1.0" # 이미지 태그 설정
+
+deployment:
+  name: pilhwan-container-playground # Deployment 이름 설정
+
+service:
+  name: hwan-service
+  type: NodePort # 서비스 타입을 NodePort로 변경
+  port: 8080 # 서비스 포트: 클러스터 내에서 서비스가 수신 대기하는 포트
+  targetPort: 8080 # 컨테이너 포드
+  nodePort: 30080 # 서비스가 노출될 포드
+  # 30080(클라이언트 이용 포트) -> 8080(서비스 포트) -> 8080(컨테이너 포트)
+
+serviceAccount:
+  create: true
+  name: hwan-service-account
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80

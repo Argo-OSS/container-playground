@@ -1,0 +1,6 @@
+apiVersion: v2 # helm의 버전을 명시
+name: hwan_charts # 차트의 이름
+description: A Helm chart for Kubernetes # 차트의 설명
+type: application # 차트의 타입
+version: 0.1.0 # 차트의 버전
+appVersion: "1.16.0" # 차트를 이용해 서비스되는 앱의 버전
