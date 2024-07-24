@@ -1,0 +1,27 @@
+image:
+  repository: l2hosu/argocd-oss
+  tag: "1.0"
+
+deployment:
+  replicaCount: 1
+  name: leehosu
+
+service:
+  name: leehosu-service
+  type: NodePort
+  port: 8080
+  targetPort: 8080
+  nodePort: 30080
+
+ingress:
+  name: leehosu-ingress
+  enabled: true
+  annotations: {}
+  hosts:
+    - host: localhost
+      paths:
+      - path: /api/v1/leehosu
+        pathType: Prefix
+      - path: /healthcheck
+        pathType: Prefix
+

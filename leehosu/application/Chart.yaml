@@ -1,0 +1,4 @@
+apiVersion: v2
+name: leehosu
+description: A Helm chart about container-playground for Kubernetes
+version: 0.1.0
