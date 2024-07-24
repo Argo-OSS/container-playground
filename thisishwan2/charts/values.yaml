@@ -2,9 +2,8 @@ replicaCount: 1 # 배포할 복제본 수 설정
 
 image:
 #  repository: pilhwan/container-playground # 이미지 경로 설정
-  name: pilhwan/container-playground
+  name: pilhwan/container-playground:1.0
 #  pullPolicy: IfNotPresent # 이미지를 가져오는 정책
-  tag: "1.0" # 이미지 태그 설정
 
 deployment:
   name: pilhwan-container-playground # Deployment 이름 설정
