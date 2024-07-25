@@ -1,0 +1,14 @@
+image:
+  name: juwon8891/argo-oss-helm-go
+
+deployment:
+  replicaCount: 1
+  name: argo-oss-helm-go
+
+service:
+  type: NodePort
+  port:
+    name: argo-oss-helm-go
+    port: 8080
+    targetPort: 8080
+    nodePort: 30080

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.name }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+          # resources:
+          #   limits:
+          #     cpu: "1"
+          #     memory: "512Mi"
+          #   requests:
+          #     cpu: "100m"
+          #     memory: "256Mi"
