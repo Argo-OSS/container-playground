@@ -1,0 +1,14 @@
+replicaCount: 1
+
+image:
+  name: jcy0308:latest
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30080
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

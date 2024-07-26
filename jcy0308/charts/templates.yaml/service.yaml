@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "jcy0308.fullname" . }}
+  labels:
+    {{- include "jcy0308.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+      protocol: TCP
+      nodePort: {{ .Values.service.nodePort }}
+  selector:
+    app: {{ include "jcy0308.name" . }}
+    release: {{ .Release.Name }}
