@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   name: my-app
 spec:
-  replicas: { { .Values.replicaCount } }
+  replicas: {{.Values.replicaCount}}
   template:
     metadata:
       labels:
         app: my-app
     spec:
       containers:
-        - name: { { .Chart.Name } }
-          image: '{ { .Values.image.name } }'
+        - name: {{.Chart.Name}}
+          image: "{{.Values.image.name}}"
           ports:
-            - containerPort: { { .Values.service.port } }
+            - containerPort: {{.Values.service.port}}

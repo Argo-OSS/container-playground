@@ -1,11 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: { { include "charts.fullname" . } }
-  labels: { { - include "charts.labels" . | nindent 4 } }
+  name: my-app
 spec:
-  type: { { .Values.service.type } }
+  type: {{.Values.service.type}}
   ports:
-    - port: { { .Values.service.port } }
-      targetPort: { { .Values.service.port } }
-      nodePort: { { .Values.service.nodePort } }
+    - port: {{.Values.service.port}}
+      targetPort: {{.Values.service.port}}
+      nodePort: {{.Values.service.nodePort}}
