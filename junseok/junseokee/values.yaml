@@ -1,0 +1,17 @@
+replicaCount: 1
+
+image:
+  name: public.ecr.aws/d8n4n4h0/finops-test:demo
+
+service:
+  type: NodePort
+  port: 8080
+  nodePort: 30080
+
+resources:
+   limits:
+     cpu: 50m
+     memory: 64Mi
+   requests:
+     cpu: 50m
+     memory: 64Mi
