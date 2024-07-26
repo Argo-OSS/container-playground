@@ -1,0 +1,13 @@
+image:
+  name: xcelxlorx/argo-oss:1.4
+
+deployment:
+  name: xcelxlorx-deployment
+  replicaCount: 1
+
+service:
+  name: xcelxlorx-service
+  type: NodePort
+  port: 8080
+  targetPort: 8080
+  nodePort: 30080
