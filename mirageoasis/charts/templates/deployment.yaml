@@ -1,19 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: {{ .Release.Name }}-deployment
+  labels:
+    app: {{ .Release.Name }}
 spec:
-  replicas: {{.Values.replicaCount}}
+  replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: my-app
+        app: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{.Chart.Name}}
-          image: "{{.Values.image.name}}"
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.name }}"
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: {{.Values.service.port}}
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
