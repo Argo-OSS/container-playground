@@ -10,9 +10,6 @@ COPY *.go ./
 RUN go mod download && \
     go build -o /myapp
 
-EXPOSE 8080
-
-CMD [ "/myapp" ]
 
 FROM alpine
 
