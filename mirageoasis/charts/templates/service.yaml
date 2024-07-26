@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: my-app
 spec:
-  type: {{.Values.service.type}}
+  type: NodePort
   ports:
     - port: {{.Values.service.port}}
       targetPort: {{.Values.service.port}}

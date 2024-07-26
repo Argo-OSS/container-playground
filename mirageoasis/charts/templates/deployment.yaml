@@ -4,6 +4,9 @@ metadata:
   name: my-app
 spec:
   replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: my-app
   template:
     metadata:
       labels:
