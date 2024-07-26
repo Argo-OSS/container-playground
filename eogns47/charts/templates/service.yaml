@@ -5,11 +5,10 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - 
-      name: http
-      protocol: TCP
-      port: 8080
-      targetPort: 8080
-      nodePort: 30080
+    - name: {{ .Values.service.name }}
+      protocol: {{ .Values.service.protocol }}
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      nodePort: {{ .Values.service.nodePort }}
   selector:
     app: {{ .Release.Name }}
