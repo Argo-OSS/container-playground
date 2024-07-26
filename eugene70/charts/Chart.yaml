@@ -1,0 +1,5 @@
+apiVersion: v2
+name: my-web-service
+description: A Helm chart for my web service
+type: application
+version: 1.0.0
