@@ -6,7 +6,7 @@ image:
 service:
   type: NodePort
   port: 8080
-  nodePort: 30080
+  nodePort: 31238
 
 resources:
    limits:
@@ -15,3 +15,7 @@ resources:
    requests:
      cpu: 50m
      memory: 64Mi
+
+junseokee:
+  selectorLabels:
+    app: junseokee
