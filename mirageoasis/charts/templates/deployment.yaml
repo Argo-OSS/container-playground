@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: { { .Values.replicaCount } }
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: { { .Chart.Name } }
+          image: '{ { .Values.image.name } }'
+          ports:
+            - containerPort: { { .Values.service.port } }
