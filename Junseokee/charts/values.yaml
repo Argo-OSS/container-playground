@@ -6,7 +6,7 @@ image:
 service:
   type: NodePort
   port: 8080
-  nodePort: 31238
+  nodePort: 30080
 
 resources:
    limits:
