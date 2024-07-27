@@ -9,6 +9,7 @@ spec:
   ports:
     - targetPort: {{ .Values.service.targetPort }}
       nodePort: {{ .Values.service.nodePort }}
+      port: 80
       protocol: TCP
   selector:
     app: {{ include "iamhansko.name" . }}
