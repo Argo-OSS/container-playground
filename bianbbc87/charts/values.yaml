@@ -1,0 +1,6 @@
+image:
+  name: bianbbc87/argo-next:latest
+
+service:
+  type: NodePort
+  nodePort: 30080
