@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "iamhansko.fullname" . }}
+  labels:
+    {{- include "iamhansko.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - targetPort: {{ .Values.service.targetPort }}
+      nodePort: {{ .Values.service.nodePort }}
+      protocol: TCP
+  selector:
+    app: {{ include "iamhansko.name" . }}
+    release: {{ .Release.Name }}

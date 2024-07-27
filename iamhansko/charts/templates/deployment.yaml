@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "iamhansko.fullname" . }}
+  labels:
+    {{- include "iamhansko.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "iamhansko.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "iamhansko.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.name }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: "{{ .Values.service.targetPort }}"
+          livenessProbe:
+            httpGet:
+              path: /v1/healthcheck
+              port: "{{ .Values.service.targetPort }}"
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /v1/healthcheck
+              port: "{{ .Values.service.targetPort }}"
+            initialDelaySeconds: 3
+            periodSeconds: 3
