@@ -1,0 +1,6 @@
+image:
+  name: minsu-argo:1.0
+
+service:
+  type: NodePort
+  nodePort: 30080

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minsu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minsu
+  template:
+    metadata:
+      labels:
+        app: minsu
+    spec:
+      containers:
+      - name: minsu
+        image: "{{ .Values.image.name }}"
+        ports:
+        - containerPort: 8080
