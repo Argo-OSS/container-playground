@@ -3,9 +3,11 @@ FROM golang:1.19-alpine AS builder
 
 WORKDIR /app
 
-COPY go.mod go.sum main.go ./
+COPY go.mod go.sum ./
 
 RUN go mod download
+
+COPY main.go .
 
 RUN go build -o nueavv main.go
 
