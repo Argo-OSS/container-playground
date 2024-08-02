@@ -1,0 +1,4 @@
+apiVersion: v2
+name: seojimin-week-two
+description: A Helm chart for week two assignment
+version: 0.1.0

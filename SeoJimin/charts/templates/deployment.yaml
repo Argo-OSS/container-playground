@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seojimin-week-two
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: seojimin-week-two
+  template:
+    metadata:
+      labels:
+        app: seojimin-week-two
+    spec:
+      containers:
+        - name: seojimin-week-two
+          image: "{{ .Values.image.name }}"
+          ports:
+            - containerPort: 8080
