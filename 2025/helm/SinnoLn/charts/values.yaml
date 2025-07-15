@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  name: "sinnoln/my-webservice:1.0.0"
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8080
+  nodePort: 30080
+
+podAnnotations: {}
