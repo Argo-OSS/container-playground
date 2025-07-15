@@ -1,0 +1,33 @@
+{
+  "name": "bianbbc87",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node ./app.ts",
+    "start": "node dist/app.js",
+    "start:prod": "npm run build && npm run start",
+    "build": "tsc -p . && cp -R public/* dist/public/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Argo-OSS/container-playground.git"
+  },
+  "author": "bianbbc87",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Argo-OSS/container-playground/issues"
+  },
+  "homepage": "https://github.com/Argo-OSS/container-playground#readme",
+  "description": "",
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.14",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "nodemon": "^3.1.10"
+  }
+}
