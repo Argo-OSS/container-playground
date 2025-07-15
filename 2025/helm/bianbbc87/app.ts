@@ -2,9 +2,9 @@ import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 
 // environment variables
-const PORT = 8080;
-const VERSION = "v1";
-const AUTHOR = "bianbbc87";
+const PORT = process.env.PORT || 8080;
+const VERSION = process.env.VERSION || "v1";
+const AUTHOR = process.env.AUTHOR || "bianbbc87";
 
 // create an Express application
 const app = express();
