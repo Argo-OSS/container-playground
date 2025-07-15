@@ -1,0 +1,8 @@
+apiVersion: v2 # Helm 3
+name: bianbbc87-playground
+version: 0.1.1
+appVersion: 0.1.0
+description: "A Helm chart for deploying bianbbc87's playground application"
+maintainers:
+  - name: bianbbc87
+    email: bian87@dgu.ac.kr

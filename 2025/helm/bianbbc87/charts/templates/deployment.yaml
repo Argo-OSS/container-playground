@@ -1,0 +1,32 @@
+apiVersion: apps/v1 # service와 다르게 apps/v1 사용 (<API 그룹>/<버전>)
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+  labels:
+    app: {{ .Values.app.name }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  # Selector로 Deployment이 관리할 Pod를 지정
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+
+  # 템플릿으로 Pod 생성
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+        - name: {{ .Values.app.name }}
+          image: {{ .Values.image.name }}
+          ports:
+            - containerPort: {{ .Values.app.container.port }} # 컨테이너가 노출할 포트
+          # 우선순위 환경변수
+          env:
+            - name: PORT
+              value: "{{ .Values.app.container.port }}"
+            - name: VERSION
+              value: "{{ .Values.app.version }}"
+            - name: AUTHOR
+              value: "{{ .Values.app.author }}"

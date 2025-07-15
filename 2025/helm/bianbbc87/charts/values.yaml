@@ -1,0 +1,17 @@
+app:
+  name: bianbbc87-playground
+  replicas: 1
+  container:
+    port: 8080
+  version: "v1"
+  author: "bianbbc87"
+
+# docker image 용 values
+image:
+  name: bianbbc87/2025-argoproj-playground:latest
+
+service:
+  enabled: true # 서비스 생성 여부
+  type: NodePort # 외부에서도 직접 접근이 가능한 service type
+  port: 80
+  nodePort: 30080 # 외부에서 접근할 포트
