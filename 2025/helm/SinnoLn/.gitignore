@@ -1,0 +1,16 @@
+# Go 바이너리 및 빌드 결과물
+*.exe
+*.test
+*.prof
+*.out
+bin/
+pkg/
+
+# IDE 및 에디터 관련 파일
+.idea
+.vscode
+.DS_Store
+*.iml
+
+# Helm Chart 관련
+charts/*.tgz
