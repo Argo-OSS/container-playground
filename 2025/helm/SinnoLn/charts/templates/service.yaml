@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sinnoln-go-service.fullname" . }}
+  labels:
+    {{- include "sinnoln-go-service.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: http
+      nodePort: {{ .Values.service.nodePort }}
+  selector:
+    {{- include "sinnoln-go-service.selectorLabels" . | nindent 4 }}
