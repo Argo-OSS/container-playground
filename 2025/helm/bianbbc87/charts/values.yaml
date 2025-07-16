@@ -13,5 +13,5 @@ image:
 service:
   enabled: true # 서비스 생성 여부
   type: NodePort # 외부에서도 직접 접근이 가능한 service type
-  port: 80
+  port: 8080
   nodePort: 30080 # 외부에서 접근할 포트
