@@ -1,0 +1,6 @@
+image:
+  repository: sangyeong01/django-app:latest
+
+service:
+  type: NodePort
+  nodePort: 30080
