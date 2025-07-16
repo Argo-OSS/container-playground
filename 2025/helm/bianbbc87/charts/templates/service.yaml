@@ -1,4 +1,4 @@
-{{- if .Values.service.enabled -}} # 서비스 생성 여부
+{{- if .Values.service.enabled -}} # 1. 서비스 생성 여부
 
 apiVersion: v1
 kind: Service
@@ -8,11 +8,19 @@ metadata:
     app: {{ .Values.app.name }}
 spec:
   type: {{ .Values.service.type }}
+  {{- if eq .Values.service.type "ExternalName" }} # 2. kube-dns 1,7 or CoreDNS 0.0.8 이상인 경우 사용하기
+  externalName: {{ .Values.service.externalName }} 
+  {{- else }}
+  # ClusterIP는 기본값
   ports:
-    - port: {{ .Values.service.port }} # 서비스가 노출할 port (cluster 내부 기준)
-      targetPort: {{ .Values.app.container.port }} # 컨테이너가 listen 중인 port
-      nodePort: {{ .Values.service.nodePort }} # 외부에서 접근할 포트, NodePort 타입일 때만 사용
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.app.container.port }}
+      protocol: {{ .Values.service.protocol | default "TCP" }}
+      {{- if eq .Values.service.type "NodePort" }} # 3. NodePort 타입일 때만 사용
+      nodePort: {{ .Values.service.nodePort }} # 외부에서 접근할 포트
+      {{- end }} # 3
   # Selector로 서비스가 연결할 Pod를 지정
   selector:
     app: {{ .Values.app.name }}
-{{- end -}}
+  {{- end }} # 2
+{{- end -}} # 1

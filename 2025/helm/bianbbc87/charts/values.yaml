@@ -12,6 +12,10 @@ image:
 
 service:
   enabled: true # 서비스 생성 여부
-  type: NodePort # 외부에서도 직접 접근이 가능한 service type
+  type: ClusterIP # 외부에서도 직접 접근이 가능한 service type
   port: 8080
   nodePort: 30080 # 외부에서 접근할 포트
+  # clusterIP: ""
+  # protocol: UDP # 기본값은 TCP
+  # loadBalancerIP: "" # LoadBalancer 타입일 때, 외부에서 접근할 IP
+  # externalName: "" # ExternalName 타입일 때, 외부 DNS 이름
