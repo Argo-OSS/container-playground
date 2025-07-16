@@ -6,7 +6,7 @@
     "dev": "nodemon --exec ts-node ./app.ts",
     "start": "node dist/app.js",
     "start:prod": "npm run build && npm run start",
-    "build": "tsc -p . && cp -R public/* dist/public/",
+    "build": "tsc -p . && mkdir -p dist/public && cp -R public/* dist/public/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

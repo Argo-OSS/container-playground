@@ -1,0 +1,10 @@
+node_modules/
+dist/
+charts/
+.DS_Store
+
+.gitignore
+
+README.md
+
+# .env
