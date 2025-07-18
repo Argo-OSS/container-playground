@@ -92,6 +92,7 @@ livenessProbe:
   httpGet:
     path: /healthcheck
     port: 8080
+
 readinessProbe:
   httpGet:
     path: /healthcheck
