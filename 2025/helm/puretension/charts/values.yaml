@@ -1,0 +1,76 @@
+# Helm에서는 values.yaml에 있는 값을 기반으로 templates/*.yaml 파일들을 렌더링해서 쿠버네티스 리소스를 생성
+
+# Default values for puretension-service
+replicaCount: 1 # 생성할 파드(Pod) 개수
+
+image:
+  name: puretension-service # 이미지 이름
+  tag: "latest"
+  pullPolicy: IfNotPresent # 이미지 다운로드 조건: 로컬에 없을 때만 다운로드   <-> Always 항상 다운로드 (최신 이미지 개발 중일 때 사용)
+
+imagePullSecrets: [] # 비어있으면 공개 이미지만 사용 가능
+nameOverride: "" # Helm이 생성하는 리소스 이름을 바꾸고 싶을 때 사용
+fullnameOverride: ""
+
+serviceAccount: # 쿠버네티스 리소스가 사용할 서비스 계정 설정
+  create: true # create: true이면 Helm이 새로 서비스 계정을 생성
+  annotations: {}
+  name: ""
+
+podAnnotations: {} # 파드에 부가 정보 달 때 사용
+
+podSecurityContext: # 보안 관련 설정
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: NodePort # 외부에서 접속 가능
+  port: 8080 # 서비스가 노출하는 포트(클러스터 외부/내부)
+  targetPort: 8080 # 파드(컨테이너) 내부에서 사용하는 포트
+  nodePort: 30080 # NodePort 타입일 때 외부에서 접속할 수 있는 노드 포트
+  containerPort: 8080 # 컨테이너 내부에서 사용하는 포트
+
+resources:
+  {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+env:
+  - name: PORT
+    value: "8080"
+
+livenessProbe:
+  path: "/healthcheck"
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  path: "/healthcheck"
+  initialDelaySeconds: 5
+  periodSeconds: 5
