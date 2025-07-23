@@ -1,0 +1,4 @@
+apiVersion: v2
+name: my-first-helm-chart
+version: 0.1.0
+description: A Helm chart for my first helm chart

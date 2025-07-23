@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app # deployment name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app # which pod to manage
+  template:
+    metadata:
+      labels:
+        app: my-app # pod's label that deployment creates
+    spec:
+      containers:
+        - name: my-app # container name
+          image: '{{ .Values.image.name }}'
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: '8080'
