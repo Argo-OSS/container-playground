@@ -1,2 +1,5 @@
+labels: my-app
+selector: my-app
+
 image:
   name: my-app

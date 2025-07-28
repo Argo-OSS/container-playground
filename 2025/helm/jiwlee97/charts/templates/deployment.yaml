@@ -6,11 +6,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-app # which pod to manage
+      app: '{{ .Values.selector }}' # which pod to manage
   template:
     metadata:
       labels:
-        app: my-app # pod's label that deployment creates
+        app: '{{ .Values.labels }}' # pod's label that deployment creates
     spec:
       containers:
         - name: my-app # container name
