@@ -7,4 +7,8 @@ image:
 ports:
   container: 8080 # Pod 내부 포트
   service: 8080 # Service 포트
-  nodePort: 30080 # 외부 접근 포트
+  nodePort: 30080 # 외부 접근 포트 (NodePort 타입일 때만 사용)
+
+# Service 설정
+service:
+  type: NodePort
