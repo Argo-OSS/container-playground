@@ -7,6 +7,6 @@ spec:
   selector:
     app: '{{ .Values.selector }}' # which pod transfer traffic to
   ports:
-    - port: 8080
-      targetPort: 8080
-      nodePort: 30080
+    - port: '{{ .Values.ports.service }}'
+      targetPort: '{{ .Values.ports.container }}'
+      nodePort: '{{ .Values.ports.nodePort }}'
