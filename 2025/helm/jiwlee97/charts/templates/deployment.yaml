@@ -16,7 +16,7 @@ spec:
         - name: my-app # container name
           image: '{{ .Values.image.name }}'
           ports:
-            - containerPort: '{{ .Values.ports.container }}'
+            - containerPort: {{ .Values.ports.container }}
           env:
             - name: PORT
               value: '{{ .Values.ports.container }}'

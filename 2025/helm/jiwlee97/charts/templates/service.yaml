@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: my-app # service name
 spec:
-  type: '{{ .Values.service.type }}'
+  type: {{ .Values.service.type }}
   selector:
     app: '{{ .Values.selector }}' # which pod transfer traffic to
   ports:
-    - port: '{{ .Values.ports.service }}'
-      targetPort: '{{ .Values.ports.container }}'
+    - port: {{ .Values.ports.service }}
+      targetPort: {{ .Values.ports.container }}
       {{- if eq .Values.service.type "NodePort" }}
-      nodePort: '{{ .Values.ports.nodePort }}'
+      nodePort: {{ .Values.ports.nodePort }}
       {{- end }}
