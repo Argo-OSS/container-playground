@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app # deployment name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: '{{ .Values.selector }}' # which pod to manage
+  template:
+    metadata:
+      labels:
+        app: '{{ .Values.labels }}' # pod's label that deployment creates
+    spec:
+      containers:
+        - name: my-app # container name
+          image: '{{ .Values.image.name }}'
+          ports:
+            - containerPort: {{ .Values.ports.container }}
+          env:
+            - name: PORT
+              value: '{{ .Values.ports.container }}'
