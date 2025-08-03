@@ -3,7 +3,9 @@ APP_NAME=my-app
 NAMESPACE=my-namespace
 CHART_PATH=./charts
 
-.PHONY: docker-build docker-test create-cluster delete-cluster install helm-debug pod-debug test
+.PHONY: all docker-build docker-test create-cluster delete-cluster install helm-debug pod-debug test
+
+all: docker-build create-cluster install test delete-cluster
 
 docker-build:
 	docker build -t $(APP_NAME):latest .
@@ -25,7 +27,7 @@ delete-cluster:
 	k3d cluster delete ${CLUSTER_NAME}
 
 install:
-	helm install ${APP_NAME} ${CHART_PATH}/ 
+	helm install ${APP_NAME} ${CHART_PATH}/ --wait 
 
 helm-debug:
 	helm template ${CHART_PATH}/ --debug
