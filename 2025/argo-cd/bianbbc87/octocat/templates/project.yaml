@@ -1,0 +1,23 @@
+# application 그룹화, 정책적 제약 설정
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: study
+spec:
+  destinations:
+    {{- range .Values.project.destinations }}
+      - namespace: {{ .namespace }}
+        server: {{ .server }}
+    {{- end }}
+  # sourceRepos : 프로젝트에서 허용된 git 저장소 목록
+  sourceRepos:
+    {{- range .Values.project.sourceRepos }}
+    - {{ . }}
+    {{- end }}
+  # deployment와 service만 허용
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: Service
+    - group: '*'
+      kind: Deployment
