@@ -1,0 +1,8 @@
+apiVersion: v2 # Helm 3
+name: bianbbc87-study
+version: 0.1.1
+appVersion: 0.1.0
+description: "A Helm chart for deploying bianbbc87's study application with AppProject"
+maintainers:
+  - name: bianbbc87
+    email: bian87@dgu.ac.kr
