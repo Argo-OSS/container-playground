@@ -1,0 +1,18 @@
+# The Chart.yaml file contains a description of the chart. You can access it from within a template.
+# The charts/ directory may contain other charts (which we call subcharts). 
+apiVersion: v2
+name: puretension-service
+description: A Helm chart for Puretension Web Service
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - web-service
+  - api
+  - container
+home: https://github.com/puretension
+sources:
+  - https://github.com/puretension
+maintainers:
+  - name: puretension
+    email: puretension@example.com

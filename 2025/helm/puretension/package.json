@@ -1,0 +1,22 @@
+{
+  "name": "puretension",
+  "version": "1.0.0",
+  "description": "Puretension Web Service for Container Playground",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web-service",
+    "api",
+    "container"
+  ],
+  "author": "puretension",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

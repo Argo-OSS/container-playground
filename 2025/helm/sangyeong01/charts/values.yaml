@@ -1,0 +1,13 @@
+image:
+  name: sangyeong01/2025-argoproj-playground:latest
+
+app:
+  name: sangyeong01-app
+  container:
+    port: 8080
+  replicas: 1
+
+service:
+  type: NodePort
+  port: 8080
+  nodePort: 30080

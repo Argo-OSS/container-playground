@@ -1,0 +1,24 @@
+# node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# env
+.env
+
+# os/ide
+.DS_Store
+.vscode/
+.idea/
+
+# build
+dist/
+coverage/
+.nyc_output/
+
+# log
+*.log
+
+# etc
+*.swp

@@ -44,28 +44,11 @@ jobs:
     if: needs.prepare.outputs.run_helm == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Create Kind Cluster Config
-        run: |
-          echo "kind: Cluster
-          apiVersion: kind.x-k8s.io/v1alpha4
-          name: $HELM_TEST_CLUSTER_NAME
-          nodes:
-          - role: control-plane
-            extraPortMappings:
-            - containerPort: 30080
-              hostPort: 30080" >> config.yaml
-      
-      - name: create kind cluster
-        uses: helm/kind-action@v1.9.0
-        with:
-          cluster_name: helm-e2e
-          config: ./config.yaml
-
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Prepare Docker build Context
         id: ctx
@@ -82,6 +65,12 @@ jobs:
           push: false
           tags: ${{ steps.ctx.outputs.tag }}
           load: true
+      
+      - name: Create Kind Cluster
+        uses: helm/kind-action@v1.12.0
+        with:
+          cluster_name: helm-e2e
+          config: ./.github/00_init/config/kind.yaml
 
       - name: Image Upload to Kind
         run: |
@@ -101,14 +90,52 @@ jobs:
 
   argocd-test:
     name: ArgoCD Test
+    env:
+      ARGOCD_BCRYPT_PASSWORD: ${{ secrets.ARGOCD_BCRYPT_PASSWORD }}
+      ARGOCD_PLAINTEXT_PASSWORD: ${{ secrets.ARGOCD_PLAINTEXT_PASSWORD }}
     needs: prepare
-    if: needs.preare.outputs.run_argo == 'true'
+    if: needs.prepare.outputs.run_argo == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: create kind cluster
-        uses: helm/kind-action@v1.9.0
+      - name: Prepare Context
+        id: ctx
+        run: |
+          echo "context=${{ env.YEAR }}/argo-cd/${{ github.actor }}" >> $GITHUB_OUTPUT
+
+      - name: Create Kind Cluster
+        uses: helm/kind-action@v1.12.0
         with:
           cluster_name: argocd-e2e
+          config: ./.github/00_init/config/kind.yaml
+
+      - name: ArgoCD Install
+        run: |
+          echo "install argo-cd cli"
+          ./.github/00_init/script/install-argocd-cli.sh
+
+          helm repo add argo https://argoproj.github.io/argo-helm
+          helm install --create-namespace -n argocd \
+            argocd argo/argo-cd -f ./.github/00_init/config/argo-cd-values.yaml \
+            --set configs.secret.argocdServerAdminPassword="$ARGOCD_BCRYPT_PASSWORD"
+
+          argocd login localhost:30080 --username admin --password $ARGOCD_PLAINTEXT_PASSWORD --plaintext
+
+      - name: Deployment ArgoCD Proj && Applcation
+        run: |
+          cd ${{ steps.ctx.outputs.context }}
+          helm install --wait ossca-argo-cd-test ./
+
+      - name: Check Project
+        run: |
+          echo "${{ secrets.ARGOCD_PROJECT_CHECKER }}" | base64 -d > validate-project.sh
+          chmod +x validate-project.sh
+          ./validate-project.sh
+
+      - name: Check Application
+        run: |
+          echo "${{ secrets.ARGOCD_APPLICATION_CHECKER }}" | base64 -d > validate-application.sh
+          chmod +x validate-application.sh
+          ./validate-application.sh
