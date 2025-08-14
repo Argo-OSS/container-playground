@@ -1,0 +1,17 @@
+project:
+  sourceRepos:
+    - 'https://github.com/argoproj/argocd-example-apps.git'
+  destinations:
+    - namespace: guestbook
+      server: https://kubernetes.default.svc
+    - namespace: default
+      server: https://kubernetes.default.svc
+
+application:
+  metadata:
+    name: guestbook
+    namespace: argocd
+  spec:
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: guestbook
