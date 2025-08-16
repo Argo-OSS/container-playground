@@ -22,4 +22,3 @@ FROM scratch
 COPY --from=builder /app/main /main
 CMD ["/main"]
 
-
