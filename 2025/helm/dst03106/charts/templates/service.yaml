@@ -14,3 +14,4 @@ spec:
       protocol: TCP
   selector: # 어떤 파드에 트래픽을 보낼지 라벨로 선택
     app: {{ include "my-chart.name" . }}
+    tier: backend

@@ -4,13 +4,21 @@ metadata:
   name: {{ include "my-chart.fullname" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  selector:
+  # Existing ReplicaSets whose pods are selected by this
+  # ... will be the ones affected by this deployment.
+  selector: 
     matchLabels:
       app: {{ include "my-chart.name" . }}
+      tier: backend
+    matchExpressions: # ref. https://kubernetes.io/ko/docs/concepts/overview/working-with-objects/labels/
+      - {key : environment, operator: NotIn, values: [dev]}
+  # Template describes the pods that will be created.
   template:
     metadata:
-      labels:
+      labels: # labels과 selector는 object 타입
         app: {{ include "my-chart.name" . }}
+        tier: backend
+        environment: prod
     spec:
       containers:
         - name: {{ .Chart.Name }}
