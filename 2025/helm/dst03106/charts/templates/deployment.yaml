@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-chart.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  # Existing ReplicaSets whose pods are selected by this
+  # ... will be the ones affected by this deployment.
+  selector: 
+    matchLabels:
+      app: {{ include "my-chart.name" . }}
+      tier: backend
+    matchExpressions: # ref. https://kubernetes.io/ko/docs/concepts/overview/working-with-objects/labels/
+      - {key : environment, operator: NotIn, values: [dev]}
+  # Template describes the pods that will be created.
+  template:
+    metadata:
+      labels: # labels과 selector는 object 타입
+        app: {{ include "my-chart.name" . }}
+        tier: backend
+        environment: prod
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.name }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PORT
+              value: "{{ .Values.service.targetPort }}"
+          ports:
+            - containerPort: {{ .Values.service.targetPort }} # 문서화용 데이터
+              # List of ports to expose from the container. 
+              # Not specifying a port here DOES NOT prevent that port from being exposed. 
+              # Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network.

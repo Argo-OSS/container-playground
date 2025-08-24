@@ -1,0 +1,12 @@
+replicaCount: 1
+
+image:
+  name: my-app:latest
+  pullPolicy: IfNotPresent
+  
+service:
+  type: NodePort
+  port: 80 # Service가 제공하는 포트 번호 (클러스터 내부에서 사용)
+  nodePort: 30080 # 클러스터 외부에서 노드 IP를 통해 접근하는 포트 번호
+  targetPort: 8080 # 실제 Pod 내부 컨테이너의 포트 번호
+    # 30080 포트 요청 -> Kubernetes Service (80) -> 선택된 Pod의 컨테이너 내부 포트(8080)으로 전달 
