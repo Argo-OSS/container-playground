@@ -1,0 +1,44 @@
+---
+# Source: bianbbc87-study/templates/project.yaml
+# application 그룹화, 정책적 제약 설정
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: study
+spec:
+  destinations:
+      - namespace: argocd
+        server: https://kubernetes.default.svc
+  # sourceRepos : 프로젝트에서 허용된 git 저장소 목록
+  sourceRepos:
+    - https://github.com/bianbbc87/argocd-example-apps
+  # deployment와 service만 허용
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: Service
+    - group: '*'
+      kind: Deployment
+---
+# Source: bianbbc87-study/templates/application.yaml
+# application 리소스를 정의, 어디에 어떤 앱을 어떻게 배포할지 등
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bianbbc87-study
+  namespace: argocd
+spec:
+  project: study
+  source:
+    repoURL: https://github.com/bianbbc87/argocd-example-apps
+    targetRevision: HEAD
+    path: helm-guestbook
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    # 자동 sync
+    automated:
+      prune: true
+      selfHeal: true
