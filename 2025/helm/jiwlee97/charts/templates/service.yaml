@@ -7,8 +7,8 @@ spec:
   selector:
     app: '{{ .Values.selector }}' # which pod transfer traffic to
   ports:
-    - port: {{ .Values.ports.service }}
-      targetPort: {{ .Values.ports.container }}
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.pod.port }}
       {{- if eq .Values.service.type "NodePort" }}
-      nodePort: {{ .Values.ports.nodePort }}
+      nodePort: {{ .Values.service.nodePort }}
       {{- end }}
