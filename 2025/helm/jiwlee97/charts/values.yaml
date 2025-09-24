@@ -1,5 +1,5 @@
-labels: my-app
-selector: my-app
+appName: my-app
+appVersion: v1
 
 image:
   name: my-app
