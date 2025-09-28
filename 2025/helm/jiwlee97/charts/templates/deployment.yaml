@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "myapp.name" . }}
+  labels:
+    {{- include "myapp.selectorLabels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "myapp.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "myapp.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "myapp.name" . }}
+          image: {{ .Values.image.name }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.pod.port }}
+          env:
+            - name: PORT
+              value: {{ .Values.pod.port | quote }}
