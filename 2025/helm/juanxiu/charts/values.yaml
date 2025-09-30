@@ -56,7 +56,7 @@ service:
   type: NodePort
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
   port: 8080
-  nodePort: 30080
+  nodePort: 30081
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
@@ -124,3 +124,22 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+project:
+  sourceRepos:
+    - 'https://github.com/argoproj/argocd-example-apps.git'
+  destinations:
+    - namespace: helm-guestbook
+      server: https://kubernetes.default.svc
+
+application:
+  metadata:
+    name: helm-guestbook
+    namespace: argocd
+  spec:
+    source:
+      repoURL: 'https://github.com/argoproj/argocd-example-apps.git'
+      path: helm-guestbook
+      targetRevision: HEAD
+    destination:
+      namespace: helm-guestbook 

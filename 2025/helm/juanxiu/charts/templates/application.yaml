@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.application.metadata.name }}
+  namespace: {{ .Values.application.metadata.namespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.application.metadata.name }}-project
+  source:
+  {{- toYaml .Values.application.spec.source | nindent 4 }}
+  destination:
+    namespace: {{ .Values.application.spec.destination.namespace }}
+    server: {{ (index .Values.project.destinations 0).server }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
