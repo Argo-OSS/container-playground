@@ -4,3 +4,11 @@ project:
   destinations:
     - namespace: guestbook
       server: https://kubernetes.default.svc
+
+application:
+  metadata:
+    name: guestbook
+    namespace: argocd
+  spec:
+    destination:
+      namespace: guestbook
