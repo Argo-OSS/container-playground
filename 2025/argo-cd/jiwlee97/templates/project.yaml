@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: guestbook-project
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Guestbook Project
+
+  sourceRepos:
+  {{- range $r := .Values.project.sourceRepos }}
+    - {{ required "project.sourceRepos[] is required" $r }}
+  {{- end }}
+
+  destinations:
+  {{- range $d := .Values.project.destinations }}
+    - namespace: {{ required "project.destinations[].namespace is required" $d.namespace }}
+      server: {{ required "project.destinations[].server is required" $d.server }}
+  {{- end }}
+
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+
+  namespaceResourceBlacklist:
+    - group: ''
+      kind: ResourceQuota
+    - group: ''
+      kind: LimitRange
+    - group: ''
+      kind: NetworkPolicy
+
+  namespaceResourceWhitelist:
+    - group: 'apps'
+      kind: Deployment
+    - group: ''
+      kind: Service
+
+  orphanedResources:
+    warn: true
+
+  permitOnlyProjectScopedClusters: false
+
+  sourceNamespaces:
+    - 'guestbook'
