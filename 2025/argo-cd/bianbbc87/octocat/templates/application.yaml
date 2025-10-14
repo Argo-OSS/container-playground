@@ -1,0 +1,21 @@
+# application 리소스를 정의, 어디에 어떤 앱을 어떻게 배포할지 등
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.application.metadata.name }}
+  namespace: {{ .Values.application.metadata.namespace }}
+spec:
+  project: {{ .Values.application.spec.project | default "study" }}
+  source:
+    repoURL: {{ index .Values.project.sourceRepos 0 }}
+    targetRevision: HEAD
+    path: helm-guestbook
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.application.spec.destination.namespace }}
+  syncPolicy:
+    # 자동 sync
+    automated:
+      prune: true
+      selfHeal: true
